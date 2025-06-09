@@ -83,7 +83,7 @@ const MainSlider = (props: IProps) => {
                     return (
                         <div className="track" key={track._id}>
                             <img src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/images/${track.imgUrl}`} alt="" />
-                            <Link href={`/trach/${track._id}`} >
+                            <Link href={`/trach/${track._id}?audio=${track.trackUrl}`} >
                                 <h4>{track.title}</h4>
                             </Link>
                             <h5>{track.description}</h5>

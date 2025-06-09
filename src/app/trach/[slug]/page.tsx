@@ -1,5 +1,10 @@
+'use client'
+import { useSearchParams } from 'next/navigation'
 const DetailTrackPage = (props: any) => {
-    console.log("CHeckk param: ", props)
+    const searchParams = useSearchParams()
+
+    const search = searchParams.get('audio')
+    console.log("Check searct", search);
     return (
         <div>
             detail track
