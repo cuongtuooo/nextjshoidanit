@@ -8,15 +8,25 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Button from "@mui/material/Button/Button";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Divider from '@mui/material/Divider';
-const MainSlider = () => {
+import Link from "next/link";
+
+interface IProps {
+    data: ITrackTop[];
+    title: string;
+}
+
+const MainSlider = (props: IProps) => {
+    const { data, title } = props;
+    console.log(">>>> check data: ", props.data[0].title)
+
     const NextArrow = (props: any) => {
         return (
-            <Button variant="outlined"
+            <Button variant="contained" color="inherit"
                 onClick={props.onClick}
                 sx={{
                     position: "absolute",
-                    right: 0,
-                    top: "50%",
+                    right: 25,
+                    top: "25%",
                     zIndex: 2,
                     minWidth: 30,
                     width: 35,
@@ -28,10 +38,10 @@ const MainSlider = () => {
     }
     const PrevArrow = (props: any) => {
         return (
-            <Button variant="outlined" onClick={props.onClick}
+            <Button variant="contained" color="inherit" onClick={props.onClick}
                 sx={{
                     position: "absolute",
-                    top: "50%",
+                    top: "25%",
                     zIndex: 2,
                     minWidth: 30,
                     width: 35,
@@ -54,47 +64,32 @@ const MainSlider = () => {
         <Box
             sx={{
                 margin: "0 50px",
-                ".abc": {
+                ".track": {
                     padding: "0 10px"
+                },
+                "img": {
+                    height: '150px',
+                    width: '150px'
                 },
                 "h3": {
                     border: "1px solid #ccc",
-                    padding: "20px",
-                    height: "200px",
-
                 }
             }}
         >
-            <h2> Multiple tracks </h2>
+            <h2>{title} </h2>
 
             <Slider {...settings}>
-                <div className="abc">
-                    <h3>Track 1</h3>
-                </div>
-                <div className="abc">
-                    <h3>Track 2</h3>
-                </div>
-                <div className="abc">
-                    <h3>Track 3</h3>
-                </div>
-                <div className="abc">
-                    <h3>Track 4</h3>
-                </div>
-                <div className="abc">
-                    <h3>Track 5</h3>
-                </div>
-                <div className="abc">
-                    <h3>Track 6</h3>
-                </div>
-                <div className="abc">
-                    <h3>Track 7</h3>
-                </div>
-                <div className="abc">
-                    <h3>Track 8</h3>
-                </div>
-                <div className="abc">
-                    <h3>Track 9</h3>
-                </div>
+                {data.map((track) => {
+                    return (
+                        <div className="track" key={track._id}>
+                            <img src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/images/${track.imgUrl}`} alt="" />
+                            <Link href={`/trach/${track._id}`} >
+                                <h4>{track.title}</h4>
+                            </Link>
+                            <h5>{track.description}</h5>
+                        </div>
+                    )
+                })}
             </Slider>
             <Divider />
         </Box>
